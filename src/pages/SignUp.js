@@ -8,6 +8,11 @@ import { LinkWrapper } from "../styles/LinkWrapper";
 
 const inputs = [
   {
+    type: "text",
+    value: "",
+    placeholder: "Nome",
+  },
+  {
     type: "email",
     value: "",
     placeholder: "E-mail",
@@ -17,9 +22,14 @@ const inputs = [
     value: "",
     placeholder: "Senha",
   },
+  {
+    type: "password",
+    value: "",
+    placeholder: "Confirme a senha",
+  },
 ];
 
-export default function Login() {
+export default function Signup() {
   const { theme } = useContext(Context);
 
   return (
@@ -36,9 +46,9 @@ export default function Login() {
         />
       ))}
 
-      <Button theme={theme}>Entrar</Button>
+      <Button theme={theme}>Cadastre-se</Button>
       <LinkWrapper theme={theme}>
-        <Link to="/sign-up">Primeira vez? Cadastre-se!</Link>
+        <Link to="/">Já tem uma conta? Entre agora!</Link>
       </LinkWrapper>
     </>
   );

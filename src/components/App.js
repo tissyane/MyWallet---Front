@@ -4,6 +4,7 @@ import { useState } from "react";
 import Context from "./Context";
 import { getWalletUser } from "../services/storage/getWalletUser";
 import Login from "../pages/LogIn";
+import Signup from "../pages/SignUp";
 
 const theme = {
   violet: "#8C11BE",
@@ -26,8 +27,8 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
-            {/* <Route path="/signUp" element={<SignUpPage />} />
-            <Route
+            <Route path="/sign-up" element={<Signup />} />
+            {/* <Route
               path="/accountBalance"
               element={
                 <PrivatePage>
