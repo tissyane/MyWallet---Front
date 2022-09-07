@@ -16,4 +16,13 @@ export const Input = styled.input`
   & ::placeholder {
     color: ${(props) => props.theme.black};
   }
+
+  &:focus {
+    outline-color: none;
+  }
+
+  &:disabled {
+    background-color: ${(props) => props.theme.ligthgray};
+    color: ${(props) => props.theme.ligthgray};
+  }
 `;

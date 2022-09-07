@@ -13,4 +13,10 @@ export const Button = styled.button`
   line-height: 23px;
   border: none;
   display: block;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: default;
+  }
 `;
