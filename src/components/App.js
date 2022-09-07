@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Context from "./Context";
 import { getWalletUser } from "../services/storage/getWalletUser";
+import Login from "../pages/LogIn";
 
 const theme = {
   violet: "#8C11BE",
@@ -20,12 +21,12 @@ export default function App() {
 
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyle theme={theme} />
       <Context.Provider value={{ login, setLogin, theme }}>
         <BrowserRouter>
           <Routes>
-            {/* <Route path="/" element={<LoginPage />} />
-            <Route path="/signUp" element={<SignUpPage />} />
+            <Route path="/" element={<Login />} />
+            {/* <Route path="/signUp" element={<SignUpPage />} />
             <Route
               path="/accountBalance"
               element={
