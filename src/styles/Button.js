@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  width: 85vw;
+  width: 100%;
   height: 46px;
   margin: 13px auto;
   background-color: ${(props) => props.theme.orchid};

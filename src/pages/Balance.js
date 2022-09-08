@@ -16,14 +16,18 @@ export default function Balance() {
         Não há registros de entrada ou saída
       </AccountBalance>
       <Footer>
-        <ButtonFooter theme={theme}>
-          <AiOutlinePlusCircle color="#FFFFFF" size="25px" />
-          Nova <br /> entrada
-        </ButtonFooter>
-        <ButtonFooter theme={theme}>
-          <AiOutlineMinusCircle color="#FFFFFF" size="25px" />
-          Nova <br /> saída
-        </ButtonFooter>
+        <Link to="/newIncome">
+          <ButtonFooter theme={theme}>
+            <AiOutlinePlusCircle color="#FFFFFF" size="25px" />
+            Nova <br /> entrada
+          </ButtonFooter>
+        </Link>
+        <Link to="/newExpense">
+          <ButtonFooter theme={theme}>
+            <AiOutlineMinusCircle color="#FFFFFF" size="25px" />
+            Nova <br /> saída
+          </ButtonFooter>
+        </Link>
       </Footer>
     </Page>
   );
@@ -36,23 +40,27 @@ const AccountBalance = styled.div`
   border-radius: 5px;
   margin-top: 22px;
   padding: 23px 11px 10px 12px;
+  text-align: center;
 `;
 
 const Footer = styled.footer`
   display: flex;
-  gap: 15px;
   position: absolute;
   bottom: 0;
   left: 25px;
-  right: 24px;
+
+  gap: 15px;
 `;
 
 const ButtonFooter = styled(Button)`
+  min-width: 48%;
   height: 114px;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+
   text-align: justify;
+  font-size: 17px;
+  line-height: 20px;
 `;

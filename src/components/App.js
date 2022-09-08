@@ -7,6 +7,8 @@ import Login from "../pages/LogIn";
 import Signup from "../pages/SignUp";
 import PrivatePage from "./commons/PrivatePage";
 import Balance from "../pages/Balance";
+import NewIncome from "../pages/NewIncome";
+import NewExpense from "../pages/NewExpense";
 
 const theme = {
   violet: "#8C11BE",
@@ -38,11 +40,11 @@ export default function App() {
                 </PrivatePage>
               }
             />
-            {/* <Route
+            <Route
               path="/newIncome"
               element={
                 <PrivatePage>
-                  <TodayPage />
+                  <NewIncome />
                 </PrivatePage>
               }
             />
@@ -50,10 +52,10 @@ export default function App() {
               path="/newExpense"
               element={
                 <PrivatePage>
-                  <HistoricPage />
+                  <NewExpense />
                 </PrivatePage>
               }
-            /> */}
+            />
           </Routes>
         </BrowserRouter>
       </Context.Provider>

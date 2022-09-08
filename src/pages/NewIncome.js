@@ -1,31 +1,29 @@
+import { Input } from "../styles/Input";
+import { Page } from "../styles/Page";
+import { TitlePage } from "../styles/TitlePage";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import Context from "../components/Context";
 import { Button } from "../styles/Button";
-import { Input } from "../styles/Input";
-import { Title } from "../styles/Title";
-import { LinkWrapper } from "../styles/LinkWrapper";
 import { MutatingDots } from "react-loader-spinner";
 import styled from "styled-components";
-import { Page } from "../styles/Page";
 
 const inputs = [
   {
-    name: "email",
-    type: "email",
-    placeholder: "E-mail",
+    name: "value",
+    type: "number",
+    placeholder: "Valor",
   },
   {
-    name: "password",
-    type: "password",
-    placeholder: "Senha",
+    name: "description",
+    type: "text",
+    placeholder: "Descrição",
   },
 ];
 
-export default function Login() {
+export default function NewIncome() {
   const { theme } = useContext(Context);
   const [disabled, setDisabled] = useState(false);
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ value: "", description: "" });
 
   function handleForm({ name, value }) {
     setForm({
@@ -37,10 +35,9 @@ export default function Login() {
   function sendForm() {
     setDisabled(true);
   }
-
   return (
     <Page>
-      <Title theme={theme}>My Wallet</Title>
+      <TitlePage theme={theme}>Nova entrada</TitlePage>
       <Form onSubmit={sendForm}>
         {inputs.map((input, index) => (
           <Input
@@ -74,15 +71,10 @@ export default function Login() {
               disabled={disabled}
             />
           ) : (
-            "Entrar"
+            "Salvar entrada"
           )}
         </Button>
       </Form>
-
-      <LinkWrapper theme={theme}>
-        <Link to="/balance">Primeira vez? Cadastre-se!</Link>
-        {/* //TODO:"trocar_rota" */}
-      </LinkWrapper>
     </Page>
   );
 }
