@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { setWalletUser } from "../../Services/Storage";
+import { setWalletUser } from "../../services/storage/getWalletUser";
 import Context from "../Context";
 
 export default function PrivatePage({ children }) {

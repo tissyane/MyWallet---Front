@@ -79,7 +79,8 @@ export default function Login() {
       </Form>
 
       <LinkWrapper theme={theme}>
-        <Link to="/sign-up">Primeira vez? Cadastre-se!</Link>
+        <Link to="/balance">Primeira vez? Cadastre-se!</Link>
+        {/* //TODO:"trocar_rota" */}
       </LinkWrapper>
     </>
   );

@@ -14,11 +14,11 @@ export const Input = styled.input`
   padding-left: 15px;
 
   & ::placeholder {
-    color: ${(props) => props.theme.black};
+    color: ${(props) => props.theme.red};
   }
 
   &:focus {
-    outline-color: none;
+    outline-color: ${(props) => props.theme.white};
   }
 
   &:disabled {

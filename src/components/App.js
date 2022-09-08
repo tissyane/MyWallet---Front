@@ -5,6 +5,8 @@ import Context from "./Context";
 import { getWalletUser } from "../services/storage/getWalletUser";
 import Login from "../pages/LogIn";
 import Signup from "../pages/SignUp";
+import PrivatePage from "./commons/PrivatePage";
+import Balance from "../pages/Balance";
 
 const theme = {
   violet: "#8C11BE",
@@ -28,15 +30,15 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/sign-up" element={<Signup />} />
-            {/* <Route
-              path="/accountBalance"
+            <Route
+              path="/balance"
               element={
                 <PrivatePage>
-                  <HabitsPage />
+                  <Balance />
                 </PrivatePage>
               }
             />
-            <Route
+            {/* <Route
               path="/newIncome"
               element={
                 <PrivatePage>
