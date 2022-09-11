@@ -11,4 +11,11 @@ function signUp(body) {
 function signIn(body) {
   return axios.post(`${URL}/sign-in`, body);
 }
-export { signUp, signIn };
+
+function deleteSession(token) {
+  return axios.delete(`${URL}/sign-out`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export { signUp, signIn, deleteSession };

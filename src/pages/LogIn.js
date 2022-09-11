@@ -22,7 +22,7 @@ const inputs = [
 ];
 
 export default function LoginPage() {
-  const { theme } = useContext(Context);
+  const { theme, setToken } = useContext(Context);
   const [disabled, setDisabled] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
@@ -32,7 +32,6 @@ export default function LoginPage() {
       ...form,
       [name]: value,
     });
-    console.log(form);
   }
 
   function sendForm(e) {
@@ -40,6 +39,8 @@ export default function LoginPage() {
 
     const promise = signIn(form);
     promise.then((res) => {
+      setToken(res.data.token);
+
       navigate("/balance");
     });
 

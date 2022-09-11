@@ -51,7 +51,6 @@ export default function SignupPage() {
       ...form,
       [name]: value,
     });
-    console.log(form);
   }
 
   function sendForm(e) {
@@ -59,7 +58,6 @@ export default function SignupPage() {
 
     const promise = signUp(form);
     promise.then((res) => {
-      console.log(form);
       navigate("/");
     });
 

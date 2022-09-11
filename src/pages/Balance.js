@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { TitlePage } from "../styles/TitlePage";
 import { Page } from "../styles/Page";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import Context from "../components/Context";
+import { deleteSession } from "../services/api.js";
 
 const transactions = [
   {
@@ -29,13 +30,29 @@ const transactions = [
 ];
 
 export default function Balance() {
-  const { theme } = useContext(Context);
+  const { theme, token } = useContext(Context);
+  const navigate = useNavigate();
+
+  function logout() {
+    console.log(token);
+    const confirm = window.confirm("Tem certeza que deseja sair?");
+
+    if (confirm) {
+      const promise = deleteSession(token);
+      promise.then((res) => {
+        navigate("/");
+      });
+      promise.catch((err) => {
+        console.log(err);
+      });
+    }
+  }
 
   return (
     <Page>
       <TitlePage theme={theme}>
         Olá, Fulano {/* TODO:Mudar Fulando pela variável nome */}
-        <RiLogoutBoxRLine color="#FFFFFF" size="25px" />
+        <RiLogoutBoxRLine color="#FFFFFF" size="25px" onClick={logout} />
       </TitlePage>
 
       <AccountBalance theme={theme} registers={transactions.length}>
@@ -65,17 +82,17 @@ export default function Balance() {
 
       <Footer theme={theme}>
         <Link to="/newIncome">
-          <button>
+          <div className="button">
             <AiOutlinePlusCircle color="#FFFFFF" size="25px" />
             Nova <br /> entrada
-          </button>
+          </div>
         </Link>
 
         <Link to="/newExpense">
-          <button>
+          <div className="button">
             <AiOutlineMinusCircle color="#FFFFFF" size="25px" />
             Nova <br /> saída
-          </button>
+          </div>
         </Link>
       </Footer>
     </Page>
@@ -145,19 +162,15 @@ const FinalBalance = styled.div`
 `;
 
 const Footer = styled.footer`
-  display: flex;
+  margin-top: 13px;
   gap: 15px;
-  position: absolute;
-  bottom: 16px;
-  left: 25px;
-  right: 24px;
-
+  display: flex;
   justify-content: space-between;
 
-  & button {
+  .button {
     height: 114px;
+    width: 155px;
     padding: 10px;
-
     border-radius: 5px;
     border: none;
     background-color: ${(props) => props.theme.orchid};
