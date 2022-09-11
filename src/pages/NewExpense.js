@@ -1,11 +1,9 @@
-import { Input } from "../styles/Input";
+import { useContext, useState } from "react";
 import { Page } from "../styles/Page";
 import { TitlePage } from "../styles/TitlePage";
-import { useContext, useState } from "react";
+import { Form } from "../styles/Form";
+import { loading } from "../styles/Loading";
 import Context from "../components/Context";
-import { Button } from "../styles/Button";
-import { MutatingDots } from "react-loader-spinner";
-import styled from "styled-components";
 
 const inputs = [
   {
@@ -34,14 +32,16 @@ export default function NewExpense() {
 
   function sendForm() {
     setDisabled(true);
+    console.log(form);
+    //TODO:Send to Server
   }
+
   return (
     <Page>
       <TitlePage theme={theme}>Nova saída</TitlePage>
-      <Form onSubmit={sendForm}>
+      <Form theme={theme} onSubmit={sendForm}>
         {inputs.map((input, index) => (
-          <Input
-            theme={theme}
+          <input
             key={index}
             name={input.name}
             type={input.type}
@@ -56,27 +56,10 @@ export default function NewExpense() {
           />
         ))}
 
-        <Button theme={theme} type="submit" disabled={disabled}>
-          {disabled ? (
-            <MutatingDots
-              height="100"
-              width="100"
-              color="#FFFFFF"
-              secondaryColor="#8C11BE"
-              radius="12.5"
-              ariaLabel="mutating-dots-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              disabled={disabled}
-            />
-          ) : (
-            "Salvar saída"
-          )}
-        </Button>
+        <button type="submit" disabled={disabled}>
+          {disabled ? loading : "Salvar saída"}
+        </button>
       </Form>
     </Page>
   );
 }
-
-const Form = styled.form``;

@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Context from "./Context";
 import { getWalletUser } from "../services/storage/getWalletUser";
-import Login from "../pages/LogIn";
-import Signup from "../pages/SignUp";
 import PrivatePage from "./commons/PrivatePage";
 import Balance from "../pages/Balance";
 import NewIncome from "../pages/NewIncome";
 import NewExpense from "../pages/NewExpense";
+import LoginPage from "../pages/LogIn";
+import SignupPage from "../pages/SignUp";
 
 const theme = {
   violet: "#8C11BE",
@@ -30,30 +30,23 @@ export default function App() {
       <Context.Provider value={{ login, setLogin, theme }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/sign-up" element={<Signup />} />
-            <Route
-              path="/balance"
-              element={
-                <PrivatePage>
-                  <Balance />
-                </PrivatePage>
-              }
-            />
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/sign-up" element={<SignupPage />} />
+            <Route path="/balance" element={<Balance />} />
             <Route
               path="/newIncome"
               element={
-                <PrivatePage>
-                  <NewIncome />
-                </PrivatePage>
+                // <PrivatePage>
+                <NewIncome />
+                // </PrivatePage>
               }
             />
             <Route
               path="/newExpense"
               element={
-                <PrivatePage>
-                  <NewExpense />
-                </PrivatePage>
+                // <PrivatePage>
+                <NewExpense />
+                // </PrivatePage>
               }
             />
           </Routes>

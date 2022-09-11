@@ -5,4 +5,7 @@ export const TitlePage = styled.h1`
   font-size: 26px;
   line-height: 31px;
   color: ${(props) => props.theme.white};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

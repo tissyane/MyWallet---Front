@@ -1,16 +1,17 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import Context from "../components/Context";
-import { Button } from "../styles/Button";
-import { Input } from "../styles/Input";
-import { Title } from "../styles/Title";
-import { LinkWrapper } from "../styles/LinkWrapper";
-import { MutatingDots } from "react-loader-spinner";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Page } from "../styles/Page";
+import { Title } from "../styles/Title";
+import { Form } from "../styles/Form";
+import { loading } from "../styles/Loading";
+import { LinkWrapper } from "../styles/LinkWrapper";
+import Context from "../components/Context";
+import { signUp } from "../services/api.js";
 
 const inputs = [
   {
-    name: "nome",
+    name: "name",
     type: "text",
     value: "",
     placeholder: "Nome",
@@ -35,38 +36,52 @@ const inputs = [
   },
 ];
 
-export default function Signup() {
+export default function SignupPage() {
   const { theme } = useContext(Context);
   const [disabled, setDisabled] = useState(false);
   const [form, setForm] = useState({
-    nome: "",
+    name: "",
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   function handleForm({ name, value }) {
     setForm({
       ...form,
       [name]: value,
     });
+    console.log(form);
   }
 
-  function sendForm() {
+  function sendForm(e) {
+    e.preventDefault();
+
+    const promise = signUp(form);
+    promise.then((res) => {
+      console.log(form);
+      navigate("/");
+    });
+
+    promise.catch((err) => {
+      alert("Houve um erro no seu cadastro. Verifique seus dados!");
+      setDisabled(false);
+    });
     setDisabled(true);
   }
 
   return (
-    <>
+    <Page>
       <TitleSingUp theme={theme}>My Wallet</TitleSingUp>
-      <Form onSubmit={sendForm}>
+      <Form theme={theme} onSubmit={sendForm}>
         {inputs.map((input, index) => (
-          <Input
-            theme={theme}
+          <input
             key={index}
             name={input.name}
             type={input.type}
             placeholder={input.placeholder}
             required
+            disabled={disabled}
             onChange={(e) =>
               handleForm({
                 name: e.target.name,
@@ -76,34 +91,17 @@ export default function Signup() {
           />
         ))}
 
-        <Button theme={theme} type="submit" disabled={disabled}>
-          {disabled ? (
-            <MutatingDots
-              height="100"
-              width="100"
-              color="#FFFFFF"
-              secondaryColor="#8C11BE"
-              radius="12.5"
-              ariaLabel="mutating-dots-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              disabled={disabled}
-            />
-          ) : (
-            "Cadastrar"
-          )}
-        </Button>
+        <button type="submit" disabled={disabled}>
+          {disabled ? loading : "Cadastrar"}
+        </button>
       </Form>
 
       <LinkWrapper theme={theme}>
         <Link to="/">Já tem uma conta? Entre agora!</Link>
       </LinkWrapper>
-    </>
+    </Page>
   );
 }
-
-const Form = styled.form``;
 
 const TitleSingUp = styled(Title)`
   margin-top: 95px;

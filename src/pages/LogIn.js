@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import Context from "../components/Context";
-import { Button } from "../styles/Button";
-import { Input } from "../styles/Input";
-import { Title } from "../styles/Title";
-import { LinkWrapper } from "../styles/LinkWrapper";
-import { MutatingDots } from "react-loader-spinner";
-import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 import { Page } from "../styles/Page";
+import { Title } from "../styles/Title";
+import { Form } from "../styles/Form";
+import { loading } from "../styles/Loading";
+import { LinkWrapper } from "../styles/LinkWrapper";
+import Context from "../components/Context";
+import { signIn } from "../services/api.js";
 
 const inputs = [
   {
@@ -22,34 +21,48 @@ const inputs = [
   },
 ];
 
-export default function Login() {
+export default function LoginPage() {
   const { theme } = useContext(Context);
   const [disabled, setDisabled] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   function handleForm({ name, value }) {
     setForm({
       ...form,
       [name]: value,
     });
+    console.log(form);
   }
 
-  function sendForm() {
+  function sendForm(e) {
+    e.preventDefault();
+
+    const promise = signIn(form);
+    promise.then((res) => {
+      navigate("/balance");
+    });
+
+    promise.catch((err) => {
+      alert("Verifique seus dados!");
+      setDisabled(false);
+    });
     setDisabled(true);
   }
 
   return (
     <Page>
       <Title theme={theme}>My Wallet</Title>
-      <Form onSubmit={sendForm}>
+      <Form theme={theme} onSubmit={sendForm}>
         {inputs.map((input, index) => (
-          <Input
-            theme={theme}
+          <input
             key={index}
             name={input.name}
             type={input.type}
+            value={form[input.name]}
             placeholder={input.placeholder}
             required
+            disabled={disabled}
             onChange={(e) =>
               handleForm({
                 name: e.target.name,
@@ -59,32 +72,15 @@ export default function Login() {
           />
         ))}
 
-        <Button theme={theme} type="submit" disabled={disabled}>
-          {disabled ? (
-            <MutatingDots
-              height="100"
-              width="100"
-              color="#FFFFFF"
-              secondaryColor="#8C11BE"
-              radius="12.5"
-              ariaLabel="mutating-dots-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              disabled={disabled}
-            />
-          ) : (
-            "Entrar"
-          )}
-        </Button>
+        <button type="submit" disabled={disabled}>
+          {disabled ? loading : "Entrar"}
+        </button>
       </Form>
 
       <LinkWrapper theme={theme}>
         <Link to="/balance">Primeira vez? Cadastre-se!</Link>
-        {/* //TODO:"trocar_rota" */}
+        {/* TODO:trocar_rota */}
       </LinkWrapper>
     </Page>
   );
 }
-
-const Form = styled.form``;
