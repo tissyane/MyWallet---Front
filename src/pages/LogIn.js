@@ -79,8 +79,7 @@ export default function LoginPage() {
       </Form>
 
       <LinkWrapper theme={theme}>
-        <Link to="/balance">Primeira vez? Cadastre-se!</Link>
-        {/* TODO:trocar_rota */}
+        <Link to="/sign-up">Primeira vez? Cadastre-se!</Link>
       </LinkWrapper>
     </Page>
   );

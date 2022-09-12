@@ -56,6 +56,11 @@ export default function SignupPage() {
   function sendForm(e) {
     e.preventDefault();
 
+    if (form.password !== form.passwordConfirm) {
+      alert("As senhas não coincidem");
+      return;
+    }
+
     const promise = signUp(form);
     promise.then((res) => {
       navigate("/");

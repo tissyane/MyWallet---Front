@@ -33,7 +33,14 @@ export default function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/sign-up" element={<SignupPage />} />
-            <Route path="/balance" element={<Balance />} />
+            <Route
+              path="/balance"
+              element={
+                // <PrivatePage>
+                <Balance />
+                // </PrivatePage>
+              }
+            />
             <Route
               path="/newIncome"
               element={
