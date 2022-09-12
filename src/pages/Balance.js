@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { TitlePage } from "../styles/TitlePage";
@@ -6,39 +6,18 @@ import { Page } from "../styles/Page";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import Context from "../components/Context";
-import { deleteSession } from "../services/api.js";
-
-const transactions = [
-  {
-    date: "05/09",
-    value: "15,90",
-    description: "Almoço",
-    type: "income",
-  },
-  {
-    date: "08/09",
-    value: "66,90",
-    description: "Passagem",
-    type: "expense",
-  },
-  {
-    date: "09/09",
-    value: "3.500,00",
-    description: "Salário",
-    type: "income",
-  },
-];
+import { deleteSession, getTransactions } from "../services/api.js";
+import { setWalletUser } from "../services/storage/getWalletUser";
 
 export default function Balance() {
-  const { theme, token } = useContext(Context);
+  const { theme, transactions, setTransactions, login } = useContext(Context);
   const navigate = useNavigate();
 
   function logout() {
-    console.log(token);
     const confirm = window.confirm("Tem certeza que deseja sair?");
 
     if (confirm) {
-      const promise = deleteSession(token);
+      const promise = deleteSession(login.token);
       promise.then((res) => {
         navigate("/");
       });
@@ -48,10 +27,18 @@ export default function Balance() {
     }
   }
 
+  useEffect(() => {
+    const promise = getTransactions(login.token);
+
+    promise.then((res) => {
+      setTransactions(res.data);
+    });
+  }, [setTransactions, login.token]);
+
   return (
     <Page>
       <TitlePage theme={theme}>
-        Olá, Fulano {/* TODO:Mudar Fulando pela variável nome */}
+        Olá, {login.name}
         <RiLogoutBoxRLine color="#FFFFFF" size="25px" onClick={logout} />
       </TitlePage>
 

@@ -22,13 +22,22 @@ const theme = {
 };
 
 export default function App() {
-  const [login, setLogin] = useState(getWalletUser());
-  const [token, setToken] = useState(null);
+  // const [login, setLogin] = useState(getWalletUser());
+  const [login, setLogin] = useState(null);
+  const [transactions, setTransactions] = useState([]);
 
   return (
     <>
       <GlobalStyle theme={theme} />
-      <Context.Provider value={{ login, setLogin, token, setToken, theme }}>
+      <Context.Provider
+        value={{
+          theme,
+          login,
+          setLogin,
+          transactions,
+          setTransactions,
+        }}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LoginPage />} />

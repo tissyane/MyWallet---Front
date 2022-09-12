@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Page } from "../styles/Page";
 import { Title } from "../styles/Title";
@@ -7,6 +7,7 @@ import { loading } from "../styles/Loading";
 import { LinkWrapper } from "../styles/LinkWrapper";
 import Context from "../components/Context";
 import { signIn } from "../services/api.js";
+import { setWalletUser } from "../services/storage/getWalletUser";
 
 const inputs = [
   {
@@ -22,7 +23,7 @@ const inputs = [
 ];
 
 export default function LoginPage() {
-  const { theme, setToken } = useContext(Context);
+  const { theme, login, setLogin } = useContext(Context);
   const [disabled, setDisabled] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
@@ -39,8 +40,7 @@ export default function LoginPage() {
 
     const promise = signIn(form);
     promise.then((res) => {
-      setToken(res.data.token);
-
+      setLogin(res.data);
       navigate("/balance");
     });
 
@@ -48,8 +48,15 @@ export default function LoginPage() {
       alert("Verifique seus dados!");
       setDisabled(false);
     });
+
     setDisabled(true);
   }
+
+  // useEffect(() => {
+  //   if (login !== null) {
+  //     navigate("/balance");
+  //   }
+  // }, [login, navigate]);
 
   return (
     <Page>

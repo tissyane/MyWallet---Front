@@ -18,4 +18,10 @@ function deleteSession(token) {
   });
 }
 
-export { signUp, signIn, deleteSession };
+function getTransactions(token) {
+  return axios.get(`${URL}/transactions`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export { signUp, signIn, deleteSession, getTransactions };
