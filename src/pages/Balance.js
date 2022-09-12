@@ -175,7 +175,7 @@ const Footer = styled.footer`
 
   .button {
     height: 114px;
-    width: 155px;
+    width: 152px;
     padding: 10px;
     border-radius: 5px;
     border: none;

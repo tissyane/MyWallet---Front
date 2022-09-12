@@ -22,7 +22,7 @@ const inputs = [
 ];
 
 export default function LoginPage() {
-  const { theme, login, setLogin } = useContext(Context);
+  const { theme, setLogin } = useContext(Context);
   const [disabled, setDisabled] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
