@@ -2,8 +2,6 @@ import GlobalStyle from "../styles/GlobalStyles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Context from "./Context";
-import { getWalletUser } from "../services/storage/getWalletUser";
-import PrivatePage from "./commons/PrivatePage";
 import Balance from "../pages/Balance";
 import NewIncome from "../pages/NewIncome";
 import NewExpense from "../pages/NewExpense";
@@ -42,30 +40,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/sign-up" element={<SignupPage />} />
-            <Route
-              path="/balance"
-              element={
-                // <PrivatePage>
-                <Balance />
-                // </PrivatePage>
-              }
-            />
-            <Route
-              path="/newIncome"
-              element={
-                // <PrivatePage>
-                <NewIncome />
-                // </PrivatePage>
-              }
-            />
-            <Route
-              path="/newExpense"
-              element={
-                // <PrivatePage>
-                <NewExpense />
-                // </PrivatePage>
-              }
-            />
+            <Route path="/balance" element={<Balance />} />
+            <Route path="/newIncome" element={<NewIncome />} />
+            <Route path="/newExpense" element={<NewExpense />} />
           </Routes>
         </BrowserRouter>
       </Context.Provider>

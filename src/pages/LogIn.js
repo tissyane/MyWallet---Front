@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Page } from "../styles/Page";
 import { Title } from "../styles/Title";
@@ -7,7 +7,6 @@ import { loading } from "../styles/Loading";
 import { LinkWrapper } from "../styles/LinkWrapper";
 import Context from "../components/Context";
 import { signIn } from "../services/api.js";
-import { setWalletUser } from "../services/storage/getWalletUser";
 
 const inputs = [
   {
@@ -51,12 +50,6 @@ export default function LoginPage() {
 
     setDisabled(true);
   }
-
-  // useEffect(() => {
-  //   if (login !== null) {
-  //     navigate("/balance");
-  //   }
-  // }, [login, navigate]);
 
   return (
     <Page>

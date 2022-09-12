@@ -7,7 +7,6 @@ import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import Context from "../components/Context";
 import { deleteSession, getTransactions } from "../services/api.js";
-import { setWalletUser } from "../services/storage/getWalletUser";
 
 export default function Balance() {
   const { theme, transactions, setTransactions, login } = useContext(Context);
@@ -55,7 +54,11 @@ export default function Balance() {
         <div>
           {transactions.length ? (
             transactions.map((transaction) => (
-              <Transactions theme={theme} type={transaction.typeSetting}>
+              <Transactions
+                key={transaction._id}
+                theme={theme}
+                type={transaction.typeSetting}
+              >
                 <div className="left">
                   <span className="date">{transaction.date}</span>
                   <span>{transaction.description}</span>
