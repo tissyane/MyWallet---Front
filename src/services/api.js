@@ -24,4 +24,23 @@ function getTransactions(token) {
   });
 }
 
-export { signUp, signIn, deleteSession, getTransactions };
+function createIncome(body, token) {
+  return axios.post(`${URL}/transactions/income`, body, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+function createExpense(body, token) {
+  return axios.post(`${URL}/transactions/expense`, body, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export {
+  signUp,
+  signIn,
+  deleteSession,
+  getTransactions,
+  createIncome,
+  createExpense,
+};

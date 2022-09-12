@@ -40,7 +40,11 @@ export const Form = styled.form`
     font-size: 20px;
     line-height: 23px;
     border: none;
-    display: block;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     cursor: pointer;
 
     &:disabled {

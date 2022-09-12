@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Page } from "../styles/Page";
 import { TitlePage } from "../styles/TitlePage";
 import { Form } from "../styles/Form";
 import { loading } from "../styles/Loading";
 import Context from "../components/Context";
+
+import { createExpense } from "../services/api.js";
 
 const inputs = [
   {
@@ -18,8 +21,9 @@ const inputs = [
   },
 ];
 
-export default function NewExpense() {
-  const { theme } = useContext(Context);
+export default function NewIncome() {
+  const { theme, login } = useContext(Context);
+  const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
   const [form, setForm] = useState({ value: "", description: "" });
 
@@ -30,10 +34,21 @@ export default function NewExpense() {
     });
   }
 
-  function sendForm() {
+  function sendForm(e) {
+    e.preventDefault();
+
+    const promise = createExpense(form, login.token);
+    promise.then((res) => {
+      navigate("/balance");
+    });
+
+    promise.catch((err) => {
+      alert("Não foi possível cadastrar essa saída!");
+      console.log(err.message);
+      setDisabled(false);
+    });
+
     setDisabled(true);
-    console.log(form);
-    //TODO:Send to Server
   }
 
   return (

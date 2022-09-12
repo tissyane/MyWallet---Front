@@ -35,6 +35,15 @@ export default function Balance() {
     });
   }, [setTransactions, login.token]);
 
+  let finalBalance = 0;
+  transactions.forEach((transaction) => {
+    if (transaction.typeSetting === "income") {
+      finalBalance += transaction.value;
+    } else {
+      finalBalance -= transaction.value;
+    }
+  });
+
   return (
     <Page>
       <TitlePage theme={theme}>
@@ -46,13 +55,15 @@ export default function Balance() {
         <div>
           {transactions.length ? (
             transactions.map((transaction) => (
-              <Transactions theme={theme} type={transaction.type}>
+              <Transactions theme={theme} type={transaction.typeSetting}>
                 <div className="left">
                   <span className="date">{transaction.date}</span>
                   <span>{transaction.description}</span>
                 </div>
 
-                <span className="valor">{transaction.value}</span>
+                <span className="valor">
+                  {transaction.value.toFixed(2).replace(".", ",")}
+                </span>
               </Transactions>
             ))
           ) : (
@@ -61,9 +72,9 @@ export default function Balance() {
             </NoTransactions>
           )}
         </div>
-        <FinalBalance>
+        <FinalBalance theme={theme} isPositive={finalBalance >= 0}>
           <h1>SALDO</h1>
-          <span>Valor</span>
+          <span>{finalBalance.toFixed(2).replace(".", ",")}</span>
         </FinalBalance>
       </AccountBalance>
 
@@ -145,6 +156,11 @@ const FinalBalance = styled.div`
 
   h1 {
     font-weight: 700;
+  }
+
+  span {
+    color: ${(props) =>
+      props.isPositive ? props.theme.green : props.theme.red};
   }
 `;
 

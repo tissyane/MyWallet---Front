@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Page } from "../styles/Page";
 import { TitlePage } from "../styles/TitlePage";
 import { Form } from "../styles/Form";
 import { loading } from "../styles/Loading";
 import Context from "../components/Context";
+import { createIncome } from "../services/api.js";
 
 const inputs = [
   {
@@ -19,7 +21,8 @@ const inputs = [
 ];
 
 export default function NewIncome() {
-  const { theme } = useContext(Context);
+  const { theme, login } = useContext(Context);
+  const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
   const [form, setForm] = useState({ value: "", description: "" });
 
@@ -30,12 +33,22 @@ export default function NewIncome() {
     });
   }
 
-  function sendForm() {
-    setDisabled(true);
-    console.log(form);
-    //TODO:Send to Server
-  }
+  function sendForm(e) {
+    e.preventDefault();
 
+    const promise = createIncome(form, login.token);
+    promise.then((res) => {
+      navigate("/balance");
+    });
+
+    promise.catch((err) => {
+      alert("Não foi possível cadastrar essa entrada!");
+      console.log(err.message);
+      setDisabled(false);
+    });
+
+    setDisabled(true);
+  }
   return (
     <Page>
       <TitlePage theme={theme}>Nova entrada</TitlePage>
